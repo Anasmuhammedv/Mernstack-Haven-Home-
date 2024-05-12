@@ -1,0 +1,21 @@
+.sofa-container button{
+  margin-bottom: 100px;
+}
+.sofa-img{
+  display: flex;
+  flex-direction: row;
+  height: auto;
+}
+.sofa-main-img {
+
+  top: 100px;
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  margin-bottom: 100px;
+}
+.Main{
+  /* background-color: black; */
+  width: 100%;
+  
+}

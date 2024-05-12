@@ -1,0 +1,10 @@
+.Login{
+    align-items: center;
+    justify-content: center;
+    background-color: slategrey;
+    /* align-self: center; */
+}
+.Email{
+   margin-top: 20px ;
+   width: 300px;
+}
