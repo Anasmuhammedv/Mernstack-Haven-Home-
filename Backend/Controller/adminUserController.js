@@ -13,7 +13,7 @@ export const allUser = async (req,res)=>{
         if(allUser.length ===0){
            return res.status(404).json({message:"no user is found"})
         }
-        res.status(200).json({allUser})
+        res.status(200).json(allUser)
         
     } catch (error) {
         res.status(404).json({message:error})
@@ -104,7 +104,7 @@ export const adminViewUserById =async (req,res)=>{
                 if(!userBlock){
                     return res.status(404).json({message:"user not found"})
                 }
-                res.status(404).json({message:"user Blocked successfully"})
+                res.status(200).json({message:"user Blocked successfully"})
                 
             } catch (error) {
                 res.status(404).json({message:"intrenal server error" , error})
@@ -123,7 +123,7 @@ export const adminUnBlockUser = async(req,res)=>{
         if(!userUnBlock){
             return res.status(404).json({message:"user not found"})
         }
-        res.status(404).json({message:"user unblocked successfully"})
+        res.status(200).json({message:"user unblocked successfully"})
         
     } catch (error) {
         res.status(404).json({message:"intrenal server error" , error})

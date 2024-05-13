@@ -1,36 +1,55 @@
 
 
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AdminNavbar from './AdminNavbar';
 
 function AdminLogin() {
     const navigate = useNavigate();
 
-    const Admin = {
-        name: "Admin",
-        email: "admin@gmail.com",
-        password: 123456
-    };
+    
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [adminLogin, setAdminLogin] = useState([]);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (Admin.email == email && Admin.password == password) {
-            navigate('/AdminView');
-        } else {
-            alert("Email or password is incorrect");
+
+    
+        const handlesubmit =async (e)=>{
+            e.preventDefault()
+
+            try {
+
+                const response = await axios.post(`http://localhost:7907/api/admin/Login`,{
+                    email,password
+                })
+                console.log(response);
+
+                if(response.status ==200){
+                    const adminTokens = response.data.token
+                    localStorage.setItem("adminToken",adminTokens)
+                    console.log("admintoken",adminTokens);
+
+                 alert("admin logged successfully")
+                 navigate('/adminView')
+            
+                }else{
+                    alert("login failed unautharised")
+                }
+                
+            } catch (error) {
+
+                console.log(error);
+                
+            }
+           
         }
-    };
+        
 
     return (
         <div>
             {/* <AdminNavbar /> */}
             <div className='container-fluid d-flex justify-content-center align-items-center vh-100 bg-secondary'>
-                <form className='card p-4' onSubmit={handleSubmit} style={{ maxWidth: '400px' }}>
+                <form className='card p-4' onSubmit={handlesubmit}  style={{ maxWidth: '400px' }}>
                     <h1 className='text-center mb-4'>Admin Login</h1>
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">Email address</label>

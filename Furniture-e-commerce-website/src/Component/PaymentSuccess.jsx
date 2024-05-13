@@ -30,7 +30,7 @@ function PaymentSuccess() {
           navigate("/");
         }
       } catch (error) {
-        toast.error(error.response.data.message);
+        alert(error.response.data.message);
       }
     };
 

@@ -7,14 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 function AdminProducyEdit() {
   const [
-    user,
-    setUser,
-    signup,
-    setSignup,
-    newUser,
-    setNewUser,
-    products,
-    setProducts,
+    user,setUser,
+    signup,setSignup,
+    newUser,setNewUser,
+    products,setProducts,
+    oneUser,setoneUser
   ] = useContext(Globalcontext);
 
   const navigate=useNavigate()
@@ -70,7 +67,7 @@ function AdminProducyEdit() {
       <div className="d-flex flex-row">
         <img
           className="img-card"
-          src={filter.image}
+          src={filter.productImage}
           alt=""
           height={"500px"}
           width={"500px"}

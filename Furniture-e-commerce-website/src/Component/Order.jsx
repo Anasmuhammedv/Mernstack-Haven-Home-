@@ -126,15 +126,16 @@ function Order() {
                               <li className="list-inline-item items-list">
                                 <p
                                   className="py-1 px-2 rounded text-white"
-                                  style={{ backgroundColor: "#f37a27" }}
+                                  // style={{ backgroundColor: "#f37a27" }}
+                                  style={{ backgroundColor: order.orderStatus === "Ordered" ?  "blue": "#f37a27" }}
                                 >
                                   Ordered
                                 </p>
                               </li>
                               <li className="list-inline-item items-list">
-                                <p
+                                <p 
                                   className="py-1 px-2 rounded text-white"
-                                  style={{ backgroundColor: "#f37a27" }}
+                                  style={{ backgroundColor: order.orderStatus === "shipped" ?  "red": "#f37a27" }}
                                 >
                                   Shipped
                                 </p>
@@ -142,7 +143,7 @@ function Order() {
                               <li className="list-inline-item items-list">
                                 <p
                                   className="py-1 px-2 rounded text-white"
-                                  style={{ backgroundColor: "#f37a27" }}
+                                  style={{ backgroundColor: order.orderStatus === "on the way" ?  "grey": "#f37a27" }}
                                 >
                                   On the way
                                 </p>
@@ -151,7 +152,9 @@ function Order() {
                                 className="list-inline-item items-list text-end"
                                 style={{ marginRight: "8px" }}
                               >
-                                <p style={{ marginRight: "-8px" }}>
+                                <p
+                                className="py-1 px-2 rounded text-white"
+                                style={{ backgroundColor: order.orderStatus === "delivered" ?  "green" : "#f37a27" }}>
                                   Delivered
                                 </p>
                               </li>

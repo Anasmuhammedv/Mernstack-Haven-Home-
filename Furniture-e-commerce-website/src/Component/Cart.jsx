@@ -24,6 +24,8 @@ function Cart() {
     fetchCartProducts();
   }, [userId]);
 
+  console.log(cartProducts,"it is from cart");
+
 
   //user can increment cart element
   const handleIncrement = async (id) => {
@@ -53,6 +55,7 @@ function Cart() {
 
   //user can increment cart product
   const handleRemove = async (id) => {
+    window.location.reload()
     try {
       await axios.post(`http://localhost:7907/api/users/${userId}/cart/${id}/remove`);
       // Update cart products after removing

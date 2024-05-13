@@ -3,16 +3,16 @@ import { cloudinaryUploadImg } from "../middleWares/uploadImage.js"
 import {  AdminViewProductByCategory, adminAllProduct, adminDeleteProduct, adminUpdateProduct, adminViewProductById, createProduct } from "../Controller/adminProductController.js"
 import { adminLogin} from "../Controller/adminLoginController.js"
 import { adminToken } from "../middleWares/adminMidddleware.js"
-import { adminBlockUser, adminDeleteUser, adminViewUserById, adminViewUserByUserName, allUser } from "../Controller/adminUserController.js"
-import { adminOrderDetails, status } from "../Controller/adminOrders.js"
+import { adminBlockUser, adminDeleteUser, adminUnBlockUser, adminViewUserById, adminViewUserByUserName, allUser } from "../Controller/adminUserController.js"
+import { Shipping, adminOrderDetails, delivered, onTheWay, status } from "../Controller/adminOrders.js"
 
 const router = express.Router()
 
 //admin login setup
-router.get('/login' , adminLogin)
+router.post('/login' , adminLogin)
 
 //Admin view all user who registerd 
-router.get('/allUser' ,adminToken,allUser)
+router.get('/allUser' ,allUser)
 
 //admin view user by their id 
 router.get('/user/:id' ,adminToken, adminViewUserById)
@@ -27,7 +27,7 @@ router.delete('/delete/user/:userId' , adminDeleteUser)
 router.post('/block/:userId', adminBlockUser)
 
 //admin unblock user by id
-router.post('/unblock/:userId' , adminBlockUser)
+router.post('/unblock/:userId' , adminUnBlockUser)
 
 //admin can add new product
 router.post('/add',cloudinaryUploadImg,adminToken, createProduct)
@@ -42,16 +42,21 @@ router.get('/product/:id',adminToken, adminViewProductById)
 router.get('/category/:categoryName',adminToken , AdminViewProductByCategory)
 
 //admin delete product by id
-router.delete('/delete/product/:id' ,adminToken, adminDeleteProduct)
+router.delete('/delete/product/:id' , adminDeleteProduct)
 
 //admin update the product
 router.patch('/editProduct/:id',cloudinaryUploadImg,adminToken , adminUpdateProduct)
 
 //admin view all order
-router.get('/order' ,adminToken, adminOrderDetails)
+router.get('/order' , adminOrderDetails)
 
 //admin view revenue generated
-router.get('/revenue',adminToken , status)
+router.get('/revenue' , status)
+
+
+router.put('/status/shipped/:id',Shipping)
+router.put('/status/ontheway/:id',onTheWay)
+router.put('/status/delivered/:id',delivered)
 
 
 export default router

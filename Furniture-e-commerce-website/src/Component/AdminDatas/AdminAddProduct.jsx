@@ -3,51 +3,50 @@ import AdminNavbar from './AdminNavbar';
 import { Globalcontext } from '../GlobalContext';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux';
-import { Add_Admin_Products } from '../redux/ProductsSlice';
-
 
 function AdminAddProduct() {
-
-  const dispatch=useDispatch()
- const  products = useSelector((state) => state.AdminProducts)
 
     const navigate=useNavigate()
 
     const [
-        user,
-        setUser,
-        signup,
-        setSignup,
-        newUser,
-        setNewUser,
+      user,setUser,
+      signup,setSignup,
+      newUser,setNewUser,
+      products,setProducts,
+      oneUser,setoneUser
       ] = useContext(Globalcontext);
       console.log(products);
     
-    const handlesubmit=(e)=>{
+    // const handlesubmit=(e)=>{
 
-        e.preventDefault()
+    //     e.preventDefault()
 
-          id:Math.random()*10;
-           let newdata  = new FormData(e.target);
-           let title = newdata.get("title");
-           let type = newdata.get("type");
-           let price= newdata.get("price");
-           let image= newdata.get("image");
+    //       id:Math.random()*10;
+    //        let newdata  = new FormData(e.target);
+    //        let title = newdata.get("title");
+    //        let type = newdata.get("type");
+    //        let price= newdata.get("price");
+    //        let image= newdata.get("image");
 
-           let newProduct={
-            id : Math.random()*10,
-            title:title,
-            type:type,
-            price:parseFloat(price),
-            image:image
-           };
+         
 
-           dispatch(Add_Admin_Products([...products,newProduct]))
 
-           navigate('/AdminView')    
 
-    }
+
+
+    //        let newProduct={
+    //         id : Math.random()*10,
+    //         title:title,
+    //         type:type,
+    //         price:parseFloat(price),
+    //         image:image
+    //        };
+
+    //        setProducts([...products,newProduct])
+
+    //        navigate('/AdminView')    
+
+    // }
 
 
   return (
@@ -57,7 +56,7 @@ function AdminAddProduct() {
       <h1 className="text-center mt-4 mb-5 font-weight-bold ">ADD PRODUCT</h1>
     <div className="container" style={{background:"grey", color:"white", width:"50%", marginTop:"100px ", padding:"20px"}}>
 
-      <form onSubmit={(e)=>handlesubmit(e)}>
+      <form>
         <div className="row mb-3">
           <label htmlFor="title" className="col-sm-2 col-form-label">Title:</label>
           <div className="col-sm-10">

@@ -1,8 +1,7 @@
 import Product from '../models/proudctModel.js'
 import { productJoi } from '../middleWares/joiValidation.js'
 import Cart from '../models/cartModel.js';
-
-
+import User from '../models/userModel.js'
 
 
 
@@ -146,25 +145,66 @@ export const AdminViewProductByCategory = async (req,res)=>{
 //Admin can delete the product in database
 
 
-export const adminDeleteProduct = async(req,res)=>{
-    try {
-        const {id}= req.params
-        const deleteProduct = await Product.findByIdAndDelete(id)
+// export const adminDeleteProduct = async(req,res)=>{
+//     try {
+//         const {id}= req.params
+//         const deleteProduct = await Product.findByIdAndDelete(id)
 
-        if(!deleteProduct){
-           return res.status(404).json({message:"no product found for deletion"})
+//         if(!deleteProduct){
+//            return res.status(404).json({message:"no product found for deletion"})
+//         }
+
+//         const cartIndex =  Cart.findIndex(item=>item.equals(deleteProduct._id))
+
+//         if(cartIndex!==-1){
+//             Cart.splice(cartIndex,1)
+//             await Cart.save()
+//         }
+
+        
+
+//         res.status(200).json(deleteProduct)
+        
+
+//     } catch (error) {
+//         res.status(404).json({message:"internal server error"})
+        
+//     }
+//  }
+
+
+export const adminDeleteProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        // Delete the product
+        const deletedProduct = await Product.findByIdAndDelete(id);
+
+        console.log(deletedProduct._id,"this is from admin delete");
+        console.log(id,"this is id in delete product");
+        const productId =deletedProduct._id
+
+        if (!deletedProduct) {
+            return res.status(404).json({ message: "No product found for deletion" });
         }
 
-        
+        // Remove the product from the cart
+        await Cart.deleteMany({productId } );
 
-        res.status(200).json({deleteProduct})
-        
 
+        const usersWithProductInCart = await User.find({ cart: productId });
+        for (const user of usersWithProductInCart) {
+            User.cart = user.cart.filter(cartProductId => cartProductId.toString() !== productId.toString());
+            await User.save();
+        }
+        // await User.cart.updateMany({ products: id }, { $pull: { products: id } });
+
+        res.status(200).json({ message: "Product deleted successfully", deletedProduct });
     } catch (error) {
-        res.status(404).json({message:"internal server error"})
-        
+        console.error("Error deleting product:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
- }
+};
+
    
 
      

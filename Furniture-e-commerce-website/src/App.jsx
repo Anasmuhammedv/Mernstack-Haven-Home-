@@ -31,6 +31,8 @@ import AdminProducyEdit from './Component/AdminDatas/AdminProducyEdit'
 import AdminAddProduct from './Component/AdminDatas/AdminAddProduct'
 import PaymentSuccess from './Component/PaymentSuccess'
 import Order from './Component/Order'
+import Orders from './Component/AdminDatas/Orders'
+import Revenuegenerated from './Component/AdminDatas/Revenuegenerated'
 
 
 
@@ -70,6 +72,8 @@ function App() {
         <Route path='/AdminAddProduct' element={<AdminAddProduct/>}/>
         <Route path='/payment/success' element={<PaymentSuccess/>}/>
         <Route path='/Order' element={<Order/>}/>
+        <Route path='/Orders' element={<Orders/>}/>
+        <Route path='/Revenuegenerated' element={<Revenuegenerated/>}/>
         
       </Routes>
 

@@ -1,4 +1,6 @@
 
+
+
 import mongoose from 'mongoose'
 
 
@@ -47,6 +49,18 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    orderStatus:{
+        type:String,
+        required:true,
+        default:"Ordered"
+    },
+
+    cart: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Cart",
+        required: true
+    }]
+
     
 
 
