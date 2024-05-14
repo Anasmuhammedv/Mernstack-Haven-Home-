@@ -1,122 +1,164 @@
-import React, { useContext, useState } from "react";
+
+
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-// import { Products } from '../../../ProductsData/Data';
 import { Globalcontext } from "../GlobalContext";
 import AdminNavbar from "./AdminNavbar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function AdminProducyEdit() {
   const [
-    user,setUser,
-    signup,setSignup,
-    newUser,setNewUser,
-    products,setProducts,
-    oneUser,setoneUser
+    user, setUser,
+    signup, setSignup,
+    newUser, setNewUser,
+    products, setProducts,
+    oneUser, setoneUser
   ] = useContext(Globalcontext);
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
-
-  const[title,setTitle]=useState("")
-  const[type,setType]=useState("")
-  const[price,setPrice]=useState("")
-  const[url,setUrl]=useState("")
-
-
+  const [price, setPrice] = useState(0);
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const [productData, setProductData] = useState({});
   const { id } = useParams();
-  const filter = products.find((e) => e.id == id);
-  console.log(id);
 
-  const handleSubmit=(e)=>{
-    e.preventDefault()
-    const editProduct=products.map((e)=>{
+  const productFind = async () => {
+    try {
+      const jwtToken = localStorage.getItem("adminToken");
+      if (!jwtToken) {
+        alert("Token is not available");
+        return;
+      }
 
-        let UpdateTitle=title || e.title;
-        let UpdateType=type || e.type;
-        let UpdatePrice=price||e.price;
-        let Updateimage=url||e.image
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: jwtToken,
+        },
+      };
 
-        if(e.id==id){
-            return{
-                ...products,
-                id   :e.id,
-                type :UpdateType,
-                title:UpdateTitle,
-                price:UpdatePrice,
-                image:Updateimage
-            }
-        }
-        else
-        return e;
+      const response = await axios.get(
+        `http://localhost:7907/api/admin/product/${id}`,
+        config
+      );
+      
+      if (response.status === 200)
+        setProductData(response.data.productById); 
+    } catch (error) {
+      alert(error.response.data.message);
+      console.log(error.response.data.message, "this is from product update");
+    }
+  };
 
+  useEffect(() => {
+    productFind();
+  }, [id]);
 
-        
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const jwtToken = localStorage.getItem('adminToken');
+      if (!jwtToken) {
+        alert("Token is not available");
+        return;
+      }
 
-    });
-    setProducts(editProduct)
-    navigate('/AdminView')
-    console.log('submitted',title);
-  }
+      const formData = new FormData();
+      formData.append('image', image);
+      formData.append('price', price);
+      formData.append('category', category);
+      formData.append('title', title);
+      formData.append('description', description);
+      
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data", // Update content type
+          Authorization: jwtToken, // Pass correct token
+        },
+      };
 
+      const response = await axios.patch(`http://localhost:7907/api/admin/editProduct/${id}`,
+        formData,
+        config
+      );
+
+      if (response.status === 200) {
+        alert("Product updated successfully");
+        navigate('/AdminView');
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+      console.log(error.response.data.message, "this is from product update catch");
+    }
+  };
 
   return (
-    <div className="" style={{ background: "grey" }}>
+    <div className="admin-product-edit">
       <AdminNavbar />
-      <h1>This is admin</h1>
+      <div className="container">
+        <h1>Product Edit</h1>
 
-      <div className="d-flex flex-row">
-        <img
-          className="img-card"
-          src={filter.productImage}
-          alt=""
-          height={"500px"}
-          width={"500px"}
-        />
-        <div style={{marginLeft:"50px"}}>
-          <form onSubmit={handleSubmit}>
-            <table>
-              <tr>
-                <td>
-                  <label htmlFor="title">Title:</label>
-                </td>
-                <td>
-                  <input type="text" placeholder={filter.title} style={{width:"300px"}} onChange={(event)=>setTitle(event.target.value)}/>
-                  <br />
-                </td>
-              </tr>
-              <br />
-              <tr>
-                <td>
-                  <label htmlFor="type">Type</label>
-                </td>
-                <td>
-                  <input type="text" placeholder={filter.type} style={{width:"300px"}} onChange={(event)=>setType(event.target.value)}/>
-                  <br />
-                </td>
-              </tr>
-              <br />
-
-              <tr>
-                <td>
-                  <label htmlFor="Price">Price</label>
-                </td>
-                <td>
-                  <input type="number" placeholder={filter.price} style={{width:"300px"}} onChange={(event)=>setPrice(event.target.value)}/>
-                  <br />
-                </td>
-              </tr>
-              <br />
-              <tr>
-                <td>
-                  <label htmlFor="image">Image Url</label>
-                </td>
-                <td>
-                  <input type="text" placeholder={filter.image} style={{width:"300px"}} onChange={(event)=>setUrl(event.target.value)}/>
-                </td>
-              </tr>
-            </table>
-          <button type="submit">edit</button>
-          </form>
+        <div className="row">
+          <div className="col-md-6">
+            <img
+              className="img-fluid mb-3"
+              src={productData.productImage} 
+              alt="image missing"
+            />
+          </div>
+          <div className="col-md-6">
+            <form onSubmit={(e) => handleUpdate(e)}>
+              <div className="mb-3">
+                <label htmlFor="title" className="form-label">Title:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder={productData.title} 
+                  onChange={(event) => setTitle(event.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="category" className="form-label">Category:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder={productData.category} 
+                  onChange={(event) => setCategory(event.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="price" className="form-label">Price:</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder={productData.price} 
+                  onChange={(event) => setPrice(event.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="description" className="form-label">Description:</label>
+                <textarea
+                  className="form-control"
+                  placeholder={productData.description}
+                  onChange={(event) => setDescription(event.target.value)}
+                ></textarea>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="image" className="form-label">Image:</label>
+                <input
+                  type="file"
+                  className="form-control"
+                  onChange={(e) => setImage(e.target.files[0])}
+                  placeholder="Image url"
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">Edit</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -124,3 +166,5 @@ function AdminProducyEdit() {
 }
 
 export default AdminProducyEdit;
+
+

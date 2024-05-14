@@ -55,7 +55,7 @@ function AdminView() {
             </div>
           </div>
           <div className='justify-content-center ' style={{marginRight:"10px"}}>
-            <button className='align-item-center justify-content-center' onClick={()=>navigate(`/AdminProducyEdit/ ${item._id}`)}><FaEdit /></button>
+            <button className='align-item-center justify-content-center' onClick={()=>navigate(`/AdminProducyEdit/${item._id}`)}><FaEdit /></button>
             {' '}
             <button onClick={()=>handleRemove(item._id)}><CiSquareRemove /></button>
           </div>

@@ -133,6 +133,8 @@ export const AdminViewProductByCategory = async (req,res)=>{
 
             await editProduct.save()
 
+            console.log(editProduct);
+
             res.status(200).json({message:"product updated successfully" , editProduct:editProduct})
 
         } catch (error) {

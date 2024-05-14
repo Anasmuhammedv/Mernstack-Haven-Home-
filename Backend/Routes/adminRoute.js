@@ -45,7 +45,7 @@ router.get('/category/:categoryName',adminToken , AdminViewProductByCategory)
 router.delete('/delete/product/:id' , adminDeleteProduct)
 
 //admin update the product
-router.patch('/editProduct/:id',cloudinaryUploadImg,adminToken , adminUpdateProduct)
+router.patch('/editProduct/:id',cloudinaryUploadImg, adminUpdateProduct)
 
 //admin view all order
 router.get('/order' , adminOrderDetails)

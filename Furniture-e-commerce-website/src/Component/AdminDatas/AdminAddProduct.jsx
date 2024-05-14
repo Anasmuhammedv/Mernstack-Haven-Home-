@@ -130,6 +130,7 @@ function AdminAddProduct() {
             className="form-control" 
             id="price" placeholder="Enter price..." 
             name='price'
+            // value={newProduct.price}
             onChange={handleChange}
             />
           </div>
