@@ -10,6 +10,8 @@ export const createProduct = async (req,res)=>{
          
         const validatedProduct = await productJoi.validateAsync(req.body);
 
+        console.log(validatedProduct);
+
  //admin can add new product
         const newProduct =new Product({
             title:validatedProduct.title,

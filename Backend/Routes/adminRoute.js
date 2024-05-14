@@ -30,7 +30,7 @@ router.post('/block/:userId', adminBlockUser)
 router.post('/unblock/:userId' , adminUnBlockUser)
 
 //admin can add new product
-router.post('/add',cloudinaryUploadImg,adminToken, createProduct)
+router.post('/add',cloudinaryUploadImg, createProduct)
 
 //admin view all product
 router.get('/allProduct',adminToken , adminAllProduct)
