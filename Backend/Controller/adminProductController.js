@@ -122,10 +122,14 @@ export const AdminViewProductByCategory = async (req,res)=>{
 
             const {title,description,price,category} =req.body
 
+            if (price !== undefined && price <= 0) {
+                return res.status(400).json({ message: "Invalid price" });
+              }
+
             if(title)         editProduct.title = title
             if(description)   editProduct.description = description
             if(category)      editProduct.category = category
-            if(price)         editProduct.price = price
+            if(price !==undefined)         editProduct.price = price
             if(req.cloudinaryImageUrl) editProduct.productImage = req.cloudinaryImageUrl
 
 

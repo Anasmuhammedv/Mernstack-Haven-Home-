@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { Globalcontext } from './GlobalContext'
 
 function SuccessPayment() {
     const navigate = useNavigate()
+    const[,,,,,,,,,,config]=useContext(Globalcontext)
      
     useEffect(()=>{
 
@@ -12,7 +14,7 @@ function SuccessPayment() {
         const fetchdata = async()=>{
             try {
     
-                const response = await axios.get(`http://localhost:7907/api/users/payment/success`)
+                const response = await axios.get(`http://localhost:7907/api/users/payment/success`,config)
                 if (response.status==200 &&isSuccess ){
                     alert("payment succcessfull")
                     navigate('/')
@@ -31,7 +33,7 @@ function SuccessPayment() {
                 isSuccess = false;
                 clearTimeout(timeout)
              };
-    },[navigate])
+    },[config,navigate])
   
 
             

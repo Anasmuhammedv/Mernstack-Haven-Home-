@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
+import { Globalcontext } from "./GlobalContext";
 
 function Order() {
   const [orders, setOrders] = useState([]);
   const userId = localStorage.getItem("id");
   const navigate = useNavigate();
 
+  const[,,,,,,,,,,config]=useContext(Globalcontext)
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:7907/api/users/order/${userId}`
+          `http://localhost:7907/api/users/order/${userId}`,
+        config
         );
         setOrders(response.data);
         console.log(response.data);
@@ -21,7 +25,7 @@ function Order() {
       }
     };
     fetchOrders();
-  }, [userId]);
+  }, [userId,config]);
 
   const formatDate = (timestamp) => {
     const date = new Date(Number(timestamp));
@@ -127,7 +131,10 @@ function Order() {
                                 <p
                                   className="py-1 px-2 rounded text-white"
                                   // style={{ backgroundColor: "#f37a27" }}
-                                  style={{ backgroundColor: order.orderStatus === "Ordered" ?  "blue": "#f37a27" }}
+                                  style={{ backgroundColor: order.orderStatus === "Ordered"||
+                                  order.orderStatus ==="shipped"||
+                                  order.orderStatus ==="on the way"||
+                                  order.orderStatus ==="delivered" ?  "green": "grey" }}
                                 >
                                   Ordered
                                 </p>
@@ -135,7 +142,9 @@ function Order() {
                               <li className="list-inline-item items-list">
                                 <p 
                                   className="py-1 px-2 rounded text-white"
-                                  style={{ backgroundColor: order.orderStatus === "shipped" ?  "red": "#f37a27" }}
+                                  style={{ backgroundColor: order.orderStatus === "shipped"||
+                                  order.orderStatus ==="on the way"||
+                                  order.orderStatus ==="delivered" ?  "green": "grey" }}
                                 >
                                   Shipped
                                 </p>
@@ -143,7 +152,8 @@ function Order() {
                               <li className="list-inline-item items-list">
                                 <p
                                   className="py-1 px-2 rounded text-white"
-                                  style={{ backgroundColor: order.orderStatus === "on the way" ?  "grey": "#f37a27" }}
+                                  style={{ backgroundColor: order.orderStatus === "on the way"||
+                                  order.orderStatus ==="delivered" ?  "green": "grey" }}
                                 >
                                   On the way
                                 </p>
@@ -154,7 +164,7 @@ function Order() {
                               >
                                 <p
                                 className="py-1 px-2 rounded text-white"
-                                style={{ backgroundColor: order.orderStatus === "delivered" ?  "green" : "#f37a27" }}>
+                                style={{ backgroundColor: order.orderStatus === "delivered" ?  "green" : "grey" }}>
                                   Delivered
                                 </p>
                               </li>

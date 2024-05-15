@@ -21,6 +21,8 @@ function AdminView() {
 
   const handleRemove = async(id)=>{
 
+    window.location.reload()
+
 
     try {
       
@@ -49,9 +51,10 @@ function AdminView() {
             {/* Adjust the width and height of the image using inline styles */}
             <img className='img-thumbnail' src={item.productImage} alt="Image not found" style={{ width: '200px', height: '200px' }} />
             <div className='d-flex flex-column justify-content-center' style={{marginLeft:"15px"}}>
-            <h4>{item.title}</h4><br />
+            <h4>{item.title}  ₹: {item.price}</h4><br />
 
-            <h3 className='card-title align-items-center'>{item.category} {" "} ₹: {item.price}</h3>
+            <h3 className='card-title align-items-center'>{item.category} {" "} </h3><br />
+            <p className='card-title align-items-center'>{item.description} {" "} </p>
             </div>
           </div>
           <div className='justify-content-center ' style={{marginRight:"10px"}}>

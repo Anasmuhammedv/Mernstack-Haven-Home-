@@ -74,7 +74,7 @@ function AdminAddProduct() {
         
       } catch (error) {
         
-        alert(response.data.message ||error)
+        alert(error)
       }
 
       e.target.reset()

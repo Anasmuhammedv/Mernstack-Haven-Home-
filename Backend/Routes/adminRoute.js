@@ -15,7 +15,7 @@ router.post('/login' , adminLogin)
 router.get('/allUser' ,allUser)
 
 //admin view user by their id 
-router.get('/user/:id' ,adminToken, adminViewUserById)
+router.get('/user/:id' , adminViewUserById)
 
 //admin view user by username
 router.get('/userName/:userName',adminToken ,adminViewUserByUserName)
@@ -33,13 +33,13 @@ router.post('/unblock/:userId' , adminUnBlockUser)
 router.post('/add',cloudinaryUploadImg, createProduct)
 
 //admin view all product
-router.get('/allProduct',adminToken , adminAllProduct)
+router.get('/allProduct' , adminAllProduct)
 
 //admin can view product by id
-router.get('/product/:id',adminToken, adminViewProductById)
+router.get('/product/:id', adminViewProductById)
 
 //Admin view product by category or title
-router.get('/category/:categoryName',adminToken , AdminViewProductByCategory)
+router.get('/category/:categoryName' , AdminViewProductByCategory)
 
 //admin delete product by id
 router.delete('/delete/product/:id' , adminDeleteProduct)

@@ -13,7 +13,7 @@ const[,,,,,,products,setProducts]=useContext(Globalcontext)
 
   const navigate=useNavigate()
   
-  const bedProducts = products.filter((product) => product.title === 'Bed');
+  const bedProducts = products.filter((product) => product.title === 'bed');
 
   
   const rows = [];
@@ -42,9 +42,9 @@ const[,,,,,,products,setProducts]=useContext(Globalcontext)
 
                 
                 <div className="card-body">
-                  <h1 className="card-title">{item.type}</h1>
+                  <h1 className="card-title">{item.title}</h1>
                   <h1 className="card-price">₹{item.price}</h1>
-                  <h5>{item.title}</h5>
+                  <h5>{item.category}</h5>
 
                 </div>
               </div>

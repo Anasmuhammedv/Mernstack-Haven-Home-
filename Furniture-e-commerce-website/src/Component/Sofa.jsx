@@ -10,7 +10,7 @@ import { Globalcontext } from './GlobalContext';
 
 function Sofa() {
   const[,,,,,,products,setproducts]=useContext(Globalcontext)
-  const Table = products.filter((product) => product.title === 'sofa');
+  const Table = products.filter((product) => product.title === 'Sofa');
   const navigate = useNavigate()
 
   
@@ -43,9 +43,9 @@ function Sofa() {
 
                
                <div className="card-body">
-                 <h1 className="card-title">{item.type}</h1>
+                 <h1 className="card-title">{item.title}</h1>
                  <h1 className="card-price">₹{item.price}</h1>
-                 <h5>{item.title}</h5>
+                 <h5>{item.category}</h5>
 
                </div>
              </div>

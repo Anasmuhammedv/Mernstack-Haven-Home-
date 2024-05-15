@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import toast from "react-hot-toast";
 import axios from "axios";
+import { Globalcontext } from "./GlobalContext";
 
 function PaymentSuccess() {
   const navigate = useNavigate();
+
+  const[,,,,,,,,,,config]=useContext(Globalcontext)
 
   useEffect(() => {
     let isSuccess = true;
@@ -24,7 +27,7 @@ function PaymentSuccess() {
         //    },
         //  };
 
-        const response = await axios.get(`http://localhost:7907/api/users/payment/success`);
+        const response = await axios.get(`http://localhost:7907/api/users/payment/success`,config);
         if (response.status === 200 && isSuccess) {
           alert("Payment successful");
           navigate("/");
@@ -38,9 +41,9 @@ function PaymentSuccess() {
 
     return () => {
       isSuccess = false;
-      clearTimeout(timeoutId); // Clear the timeout when the component unmounts
+      clearTimeout(timeoutId); 
     };
-  }, [navigate]); // Include navigate in the dependency array
+  }, [navigate,config]); 
 
   return (
     <div className="payment-success d-flex justify-content-md-center">

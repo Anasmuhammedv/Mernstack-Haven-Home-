@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Products } from "../../ProductsData/Data";
 import Allproducts from "./Allproducts";
 import Image1 from "../Component/Assets/Images/couch.png";
 import "../Css Files/Home.css";
 import Header from "./Header";
+import { Globalcontext } from "./GlobalContext";
 
 function Home() {
+
+  // const[,,,,,,,,,,config]=useContext(Globalcontext)
+
+  // console.log(config,"this is jwt token");
+
   return (
     <div>
       <Header />

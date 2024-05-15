@@ -19,7 +19,7 @@ router.get('/products/:id', productById)
 //usr can see products by category
 router.get("/products/category/:categoryName"  , productByCategory)
 
-
+router.use(userToken)
 
 //CART ROUTES
 

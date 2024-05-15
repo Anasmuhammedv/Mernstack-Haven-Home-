@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, {  useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import Header from "./Header";
 import Footer from "./Footer";
+import { Globalcontext } from "./GlobalContext";
+
+
 
 function Cart() {
   const userId = localStorage.getItem('id');
   const [cartProducts, setCartProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [,,,,,,,,,,config]=useContext(Globalcontext)
+  
+
+  
+
 
   //user view their cart product
   useEffect(() => {
     const fetchCartProducts = async () => {
       try {
-        const response = await axios.get(`http://localhost:7907/api/users/cart/${userId}`);
+        const response = await axios.get(`http://localhost:7907/api/users/cart/${userId}`,config);
         setCartProducts(response.data);
         setLoading(false);
       } catch (error) {
@@ -22,7 +30,7 @@ function Cart() {
       }
     };
     fetchCartProducts();
-  }, [userId]);
+  }, [userId,config]);
 
   console.log(cartProducts,"it is from cart");
 
@@ -30,9 +38,9 @@ function Cart() {
   //user can increment cart element
   const handleIncrement = async (id) => {
     try {
-      await axios.post(`http://localhost:7907/api/users/${userId}/cart/${id}/increment`);
+      await axios.post(`http://localhost:7907/api/users/${userId}/cart/${id}/increment`,{},config);
       // Update cart products after incrementing
-      const response = await axios.get(`http://localhost:7907/api/users/cart/${userId}`);
+      const response = await axios.get(`http://localhost:7907/api/users/cart/${userId}`,config);
       setCartProducts(response.data);
     } catch (error) {
       console.error("Error incrementing product quantity:", error);
@@ -43,9 +51,9 @@ function Cart() {
   //user can decrement cart element
   const handleDecrement = async (id) => {
     try {
-      await axios.post(`http://localhost:7907/api/users/${userId}/cart/${id}/decrement`);
+      await axios.post(`http://localhost:7907/api/users/${userId}/cart/${id}/decrement`,{},config);
       // Update cart products after decrementing
-      const response = await axios.get(`http://localhost:7907/api/users/cart/${userId}`);
+      const response = await axios.get(`http://localhost:7907/api/users/cart/${userId}`,config);
       setCartProducts(response.data);
     } catch (error) {
       console.error("Error decrementing product quantity:", error);
@@ -57,9 +65,9 @@ function Cart() {
   const handleRemove = async (id) => {
     window.location.reload()
     try {
-      await axios.post(`http://localhost:7907/api/users/${userId}/cart/${id}/remove`);
+      await axios.post(`http://localhost:7907/api/users/${userId}/cart/${id}/remove`,{},config);
       // Update cart products after removing
-      const response = await axios.get(`http://localhost:7907/api/users/cart/${userId}`);
+      const response = await axios.get(`http://localhost:7907/api/users/cart/${userId}`,config);
       setCartProducts(response.data);
     } catch (error) {
       console.error("Error removing product from cart:", error);
@@ -74,7 +82,7 @@ function Cart() {
 
       
 
-      const response =await axios.post(`http://localhost:7907/api/users/payment/${id}`)
+      const response =await axios.post(`http://localhost:7907/api/users/payment/${id}`,{},config)
       const url=response.data.url
       const confirmation = window.confirm("payment gateway is redirecting do you want to continue")
       if(confirmation)window.location.replace(url)
@@ -113,7 +121,7 @@ function Cart() {
                     </div>
                     <div className="col-md-8">
                       <div className="card-body">
-                        <h5 className="card-title">{item.productId.description}</h5>
+                        <h5 className="card-title">{item.productId.title}</h5>
                         <p className="card-text">Price: ${item.productId.price}</p>
                         <p className="card-text">Quantity: {item.quantity}</p>
                         <div className="btn-group" role="group" aria-label="Quantity">

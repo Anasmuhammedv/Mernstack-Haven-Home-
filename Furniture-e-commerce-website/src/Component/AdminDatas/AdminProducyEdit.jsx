@@ -59,6 +59,7 @@ function AdminProducyEdit() {
   }, [id]);
 
   const handleUpdate = async (e) => {
+    
     e.preventDefault();
     try {
       const jwtToken = localStorage.getItem('adminToken');
@@ -69,10 +70,14 @@ function AdminProducyEdit() {
 
       const formData = new FormData();
       formData.append('image', image);
-      formData.append('price', price);
+      // formData.append('price', price);
       formData.append('category', category);
       formData.append('title', title);
       formData.append('description', description);
+
+      if (price !== productData.price) {
+        formData.append('price', price);
+      }
       
       const config = {
         headers: {
@@ -90,6 +95,7 @@ function AdminProducyEdit() {
         alert("Product updated successfully");
         navigate('/AdminView');
       }
+      window.location.reload()
     } catch (error) {
       alert(error.response.data.message);
       console.log(error.response.data.message, "this is from product update catch");

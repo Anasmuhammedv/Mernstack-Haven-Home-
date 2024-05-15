@@ -19,7 +19,10 @@ import axios from 'axios'
 function ProductView() {
     
     const navigate=useNavigate()
-    const [,,,,,,,,oneUser]=useContext(Globalcontext)
+
+    const [,,,,,,,,,,config]=useContext(Globalcontext)
+
+    console.log(config,"this is from add caer");
                         
   const [oneProduct,setOneProduct]=useState({})                      
                         
@@ -35,15 +38,11 @@ console.log(userName,"this is username in cart");
 
         const handleclick=async(id)=>{
 
-            
             window.location.reload()
             
-             await  axios.post(`http://localhost:7907/api/users/${userId}/cart/${id}`)
-            // console.log(response,"this is response when click");
+             await  axios.post(`http://localhost:7907/api/users/${userId}/cart/${id}`, {}, config)
             
-        
-
-        
+            // console.log(response,"this is response when click");
 
         }
     
@@ -51,6 +50,8 @@ console.log(userName,"this is username in cart");
 
 useEffect(()=>{
     const anyProduct=async()=>{
+
+        
       
          const filteredProduct = await axios.get(`http://localhost:7907/api/users/products/${id}`)
          setOneProduct(filteredProduct.data)

@@ -33,6 +33,8 @@ function Table() {
              <img src={Image4} style={{width:"100%", height:"100vh"}} ></img>
 
         </div>
+
+        <br /><br />
       
 
     
@@ -46,9 +48,9 @@ function Table() {
 
                 
                 <div className="card-body">
-                  <h1 className="card-title">{item.type}</h1>
+                  <h1 className="card-title">{item.title}</h1>
                   <h1 className="card-price">₹{item.price}</h1>
-                  <h5>{item.title}</h5>
+                  <h5>{item.category}</h5>
 
                 </div>
               </div>

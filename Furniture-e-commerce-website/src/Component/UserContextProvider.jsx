@@ -13,19 +13,45 @@ export const UserContextProvider = ({children})=>{
 
     const[products,setProducts]=useState([])
 
-    useEffect(()=>{
-  
-      const getProducts = async () => {
-       
-  
-           const response = await axios.get('http://localhost:7907/api/users/allProducts') 
-              setProducts(response.data)
-           
-      }
-      getProducts()
+    const [config,setConfig]=useState(null)
+
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        // if (!token) {
+        //   alert("Token is not available");
+        //   return;
+        // }
     
-    },[])
-    console.log(products);
+        const newConfig = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        };
+    
+        
+        setConfig(newConfig);
+  
+      }, []);
+    
+      useEffect(() => {
+        const getProducts = async () => {
+          try {
+            const response = await axios.get(
+              "http://localhost:7907/api/users/allProducts",
+              
+            );
+            setProducts(response.data);
+          } catch (error) {
+            console.error("Error fetching products:", error);
+          }
+        };
+        // if (config) {
+        // }
+        getProducts();
+      }, []);
+
 
     return(
         <Globalcontext.Provider value={[
@@ -33,7 +59,8 @@ export const UserContextProvider = ({children})=>{
             signup,setSignup,
             newUser,setNewUser,
             products,setProducts,
-            oneUser,setoneUser
+            oneUser,setoneUser,
+            config
             
             
         ]}>

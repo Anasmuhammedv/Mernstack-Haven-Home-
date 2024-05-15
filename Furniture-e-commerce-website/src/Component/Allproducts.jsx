@@ -20,15 +20,15 @@ function Allproducts() {
               <div className='card'>
                 <img src={item.productImage} className='img-thumbnail' alt="Image missing" onClick={()=>navigate(`/${item._id}`)}/>
                 <div className='card-title'>
-                    <h3 className='card-title text-center'>{item.category}</h3>
+                    <h3 className='card-title text-center'>{item.title}</h3>
                 </div>
                 <div >
-                    <h2 className='card-title text-center'>₹{item.price}</h2>
+                    <h4 className='card-title text-center'>₹{item.price}</h4>
       
       
                 </div>
                 <div className='card-body'>
-                  <p className='card-title'>{item.title}</p>
+                  <p className='card-title'>{item.category}</p>
                 </div>
                 
                 
