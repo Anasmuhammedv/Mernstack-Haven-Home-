@@ -149,36 +149,7 @@ export const AdminViewProductByCategory = async (req,res)=>{
 
 
 
- 
-//Admin can delete the product in database
 
-
-// export const adminDeleteProduct = async(req,res)=>{
-//     try {
-//         const {id}= req.params
-//         const deleteProduct = await Product.findByIdAndDelete(id)
-
-//         if(!deleteProduct){
-//            return res.status(404).json({message:"no product found for deletion"})
-//         }
-
-//         const cartIndex =  Cart.findIndex(item=>item.equals(deleteProduct._id))
-
-//         if(cartIndex!==-1){
-//             Cart.splice(cartIndex,1)
-//             await Cart.save()
-//         }
-
-        
-
-//         res.status(200).json(deleteProduct)
-        
-
-//     } catch (error) {
-//         res.status(404).json({message:"internal server error"})
-        
-//     }
-//  }
 
 
 export const adminDeleteProduct = async (req, res) => {

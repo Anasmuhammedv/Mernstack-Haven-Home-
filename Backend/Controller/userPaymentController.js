@@ -96,9 +96,6 @@ export const payment = async (req, res) => {
         try {
             const { id, user, session } = paymentData;
     
-            // console.log("id is", id);
-            // console.log("session is", session);
-            // console.log("user is", user);
     
             const userId = user._id;
             const cartItem = user.cart;
@@ -160,10 +157,6 @@ export const payment = async (req, res) => {
             }
 
          
-
-            // if (!user.order || user.order.length === 0) {
-            //     return res.status(200).json({ message: "User order is empty", data: [] });
-            // }
 
             res.status(200).json(user.order)
 
