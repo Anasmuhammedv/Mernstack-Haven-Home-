@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-// import { Products } from '../../../ProductsData/Data';
 import AdminNavbar from './AdminNavbar';
 import { useNavigate } from 'react-router-dom';
 import { Globalcontext } from '../GlobalContext';

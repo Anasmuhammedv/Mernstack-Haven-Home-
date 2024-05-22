@@ -53,12 +53,7 @@ function AdminAddProduct() {
         formData.append('title',newProduct.title);
         formData.append('description',newProduct.description)
 
-        // const config ={
-        //   headers:{
-        //     "Content-Type":"multipart/form-data",
-        //     Authorization:jwtToken,
-        //   },
-        // };
+        
 
         const response =await axios.post(`http://localhost:7907/api/admin/add`,
           formData,

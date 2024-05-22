@@ -18,7 +18,7 @@ const SignUpSection = () => {
   const[username,setName]=useState('')
   const[email,setEmail]=useState('')
   const[password,setPassword]=useState('')
-  const[response,setresponse]=useState('')
+  const[response,setresponse]=useState('')  
   
   const handleSubmit= async (e)=>{
     e.preventDefault()
